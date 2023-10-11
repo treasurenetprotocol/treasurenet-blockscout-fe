@@ -46,6 +46,7 @@ const moduleExports = withTM({
     // otherwise it is impossible to upload large files (over 1Mb)
     bodyParser: false,
   },
+  productionBrowserSourceMaps: process.env.GENERATE_SOURCEMAPS === 'true',
 });
 
 module.exports = withRoutes(moduleExports);
