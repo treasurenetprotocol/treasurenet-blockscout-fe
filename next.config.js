@@ -1,10 +1,3 @@
-const withTM = require('next-transpile-modules')([
-  'react-syntax-highlighter',
-  'swagger-client',
-  'swagger-ui-react',
-]);
-const path = require('path');
-
 const withRoutes = require('nextjs-routes/config')({
   outDir: 'nextjs',
 });
@@ -13,8 +6,12 @@ const headers = require('./nextjs/headers');
 const redirects = require('./nextjs/redirects');
 const rewrites = require('./nextjs/rewrites');
 
-const moduleExports = withTM({
-  include: path.resolve(__dirname, 'icons'),
+const moduleExports = {
+  transpilePackages: [
+    'react-syntax-highlighter',
+    'swagger-client',
+    'swagger-ui-react',
+  ],
   reactStrictMode: true,
   webpack(config, { webpack }) {
     config.plugins.push(
@@ -47,6 +44,6 @@ const moduleExports = withTM({
     bodyParser: false,
   },
   productionBrowserSourceMaps: process.env.GENERATE_SOURCEMAPS === 'true',
-});
+};
 
 module.exports = withRoutes(moduleExports);
